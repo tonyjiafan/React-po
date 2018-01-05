@@ -1,0 +1,19 @@
+@keyframes logoSpin {
+  from { transform: translate(200px, 0); }
+  to { transform: translate(0px, 0); }
+}
+
+@keyframes headChange {
+  from { transform: translate(0, 0px); }
+  to { transform: translate(0, 10px); }
+}
+
+@keyframes logoRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logoRotateFll {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
