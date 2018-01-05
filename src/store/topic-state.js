@@ -1,13 +1,17 @@
 import {
   observable,
-  // computed,
+  computed,
   // action,
 } from 'mobx'
 
 export default class TopicState {
-  // constructor({ topicList } = { topicList: [] }) {
-  //   this.topicList = topicList
-  //   console.log(this.topicList)
-  // }
-  @observable topicList = []
+  constructor({ topicList, name } = { topicList: [], name: 'TOPIC - tonyjiafan' }) {
+    this.topicList = topicList
+    this.name = name
+  }
+  @observable topicList
+  @observable name
+  @computed get sayName() {
+    return `${this.name} 我原本的值是 "TOPIC - tonyjiafan"`
+  }
 }

@@ -6,11 +6,13 @@ import {
   inject
 } from 'mobx-react';
 import Button from 'material-ui/Button';
-import { AppState } from '../../store/store';
+import { AppState, TopicState } from '../../store/store';
 import logo from '../../static/images/logo.png';
 import './App.css';
 
-@inject('appState') @observer
+@inject('appState')
+@inject('topicState')
+@observer
 class App extends Component {
   constructor() {
     super()
@@ -25,9 +27,11 @@ class App extends Component {
     this.props.appState.changeName(e.target.value)
   }
   numberAdd() {
+    console.log(this.props.topicState.name = '已经被更改了')
     this.props.appState.add(2)
   }
   numberCut() {
+    console.log(this.props.topicState.name)
     this.props.appState.cut(1)
   }
 
@@ -44,6 +48,7 @@ class App extends Component {
           <br />
           <Button raised color="primary" onClick={this.numberAdd}>+</Button>
           <p> {this.props.appState.msg} </p>
+          <p> {this.props.topicState.sayName} </p>
         </div>
       </div>
     )
@@ -51,7 +56,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-  appState: PropTypes.instanceOf(AppState)
+  appState: PropTypes.instanceOf(AppState),
+  topicState: PropTypes.instanceOf(TopicState)
 }
 
 export default App;

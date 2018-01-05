@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 // 引入ui库
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
-import { lightBlue, pink } from 'material-ui/colors'
-import './index.css';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { lightBlue, pink } from 'material-ui/colors';
 import Main from './views/Main';
 import registerServiceWorker from './registerServiceWorker';
-import AppState from './store/app-state';
+import { AppState, TopicState } from './store/store';
 
 const appState = new AppState();
+const topicState = new TopicState();
+
 const root = document.getElementById('root');
 const theme = createMuiTheme({
   palette: {
@@ -21,7 +22,7 @@ const theme = createMuiTheme({
 })
 
 ReactDOM.render(
-  <Provider appState={appState}>
+  <Provider appState={appState} topicState={topicState}>
     <BrowserRouter>
       <MuiThemeProvider theme={theme}>
         <Main />
