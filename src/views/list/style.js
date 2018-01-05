@@ -40,6 +40,7 @@ export const topicSecondaryStyle = (theme) => {
       textAlign: 'center',
       marginRight: 10,
       marginLeft: 10,
+      color: '#01aef2',
     },
     visitCount: {
       textAlign: 'center',
@@ -48,7 +49,7 @@ export const topicSecondaryStyle = (theme) => {
     },
     userName: {
       marginRight: 20,
-      color: '#9e9e9e',
+      color: 'pink',
     },
     accentColor: {
       color: theme.palette.accent[500],

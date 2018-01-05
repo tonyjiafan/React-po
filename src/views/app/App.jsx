@@ -27,11 +27,11 @@ class App extends Component {
     this.props.appState.changeName(e.target.value)
   }
   numberAdd() {
-    console.log(this.props.topicState.name = '已经被更改了')
+    console.log(this.props.topicState.topicName = '已经被更改了')
     this.props.appState.add(2)
   }
   numberCut() {
-    console.log(this.props.topicState.name)
+    console.log(this.props.topicState.topicName)
     this.props.appState.cut(1)
   }
 
