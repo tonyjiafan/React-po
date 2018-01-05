@@ -13,15 +13,15 @@ import {
 
 const TopicPrimary = ({ classes, topic }) => {
   return(
-    <div className={ classes.root }>
+    <label className={ classes.root }>
       <span className={ classes.tab }>{topic.tab}</span>
       <span className={ classes.title }>{topic.title}</span>
-    </div>
+    </label>
   )
 }
 
 const TopicSecondary = ({ classes, topic }) => (
-  <div className={ classes.root }>
+  <label className={ classes.root }>
     <span className={ classes.username }>{topic.username}</span>
     <span>
       <span className={ classes.count }>{topic.count}</span>
@@ -29,7 +29,7 @@ const TopicSecondary = ({ classes, topic }) => (
       <span className={ classes.visitCount }>{topic.visit_count}</span>
     </span>
     <span className={ classes.accentColor }>创建时间：{topic.time}</span>
-  </div>
+  </label>
 )
 
 const Primary = withStyles(topicPrimaryStyle)(TopicPrimary)

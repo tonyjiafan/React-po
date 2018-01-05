@@ -14,8 +14,11 @@ export default class AppState {
   @computed get msg() {
     return `${this.name} say count is ${this.count}`
   }
-  @action add() {
-    this.count += 1
+  @action add(s) {
+    this.count += s
+  }
+  @action cut(s) {
+    this.count -= s
   }
   @action changeName(name) {
     this.name = name
