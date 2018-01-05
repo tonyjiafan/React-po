@@ -4,23 +4,18 @@ import {
   inject,
   observer
 } from 'mobx-react';
+import queryString from 'query-string';
 import Helmet from 'react-helmet';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import List from 'material-ui/List';
 import { CircularProgress } from 'material-ui/Progress'
-import HomeIcon from 'material-ui-icons/Home';
-import PhoneIcon from 'material-ui-icons/Phone';
-import FavoriteIcon from 'material-ui-icons/Favorite';
-import PersonPinIcon from 'material-ui-icons/PersonPin';
-import StarIcon from 'material-ui-icons/Star';
-import FolderIcon from 'material-ui-icons/Folder';
 
 import { AppState, TopicState } from '../../store/store';
-// import { getTopicList } from '../../api/list';
 import '../../static/css/base.css';
 import Container from '../../components/Container';
 import TopBar from '../../components/TopBar';
 import TopicListItem from './list-item';
+import { tabs } from '../../util/data';
 // import GoirdList from '../../components/GoirdList';
 
 @inject( stores => {
@@ -30,25 +25,33 @@ import TopicListItem from './list-item';
   }
 }) @observer
 export default class TopicWarp extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor() {
     super()
-    this.state = {
-      tabIndex: 0,
-    }
     this.changeTab = this.changeTab.bind(this)
     this.listItemClick = this.listItemClick.bind(this)
   }
 
   componentDidMount() {
-    // getTopicList().then(r => {
-    //   console.log(r)
-    // })
-    this.props.topicState.getTopics()
+    const tabname = this.getTab()
+    this.props.topicState.getTopics(tabname)
   }
 
-  changeTab(e, tabIndex) {
-    console.log(tabIndex)
-    this.setState({ tabIndex })
+  changeTab(e, value) {
+    console.log(value)
+    this.context.router.history.push({
+      pathname: '/list',
+      search: `?tab=${value}`
+    })
+  }
+
+  // 获取路由上的参数
+  getTab() {
+    const query = queryString.parse(this.props.location.search)
+    return query.tab || 'all'
   }
 
   listItemClick(id) {
@@ -56,20 +59,13 @@ export default class TopicWarp extends React.Component {
   }
 
   render() {
-    // const topic = {
-    //   title: 'title',
-    //   username: 'tony',
-    //   count: 30,
-    //   visit_count: 90,
-    //   time: '2017-12-01',
-    //   image: FavoriteIcon,
-    //   tab: 'share'
-    // }
     const {
       topicState,
     } = this.props
     const topicList = topicState.topics
     const syncingTopics = topicState.syncing
+    // 获取路由上的参数
+    const tabname = this.getTab()
 
     return (
       <Container>
@@ -79,18 +75,18 @@ export default class TopicWarp extends React.Component {
         <TopBar />
         <div>
           <Tabs
-            value={this.state.tabIndex}
+            value={tabname}
             onChange={this.changeTab}
             indicatorColor="primary"
             textColor="primary"
-            fullWidth
-          >
-            <Tab icon={<HomeIcon />} label="全部" />
-            <Tab icon={<FavoriteIcon />} label="分享" />
-            <Tab icon={<PhoneIcon />} label="工作" />
-            <Tab icon={<PersonPinIcon />} label="问答" />
-            <Tab icon={<StarIcon />} label="精品" />
-            <Tab icon={<FolderIcon />} label="测试" />
+            fullWidth>
+            {
+            tabs.map((t) => {
+              return(
+                <Tab key={t.name} icon={<t.img />} label={t.zh} value={t.name} />
+              )
+            })
+            }
           </Tabs>
         </div>
         <List>
@@ -119,4 +115,8 @@ export default class TopicWarp extends React.Component {
 TopicWarp.wrappedComponent.propTypes = {
   appState: PropTypes.instanceOf(AppState),
   topicState: PropTypes.instanceOf(TopicState)
+}
+
+TopicWarp.propTypes = {
+  location: PropTypes.object.isRequired
 }

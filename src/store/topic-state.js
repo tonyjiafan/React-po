@@ -50,9 +50,10 @@ class TopicState {
     this.topics.push(new Topic(createTopic(topic)))
   }
 
-  @action getTopics() {
+  @action getTopics(tab) {
     this.syncing = true
-    getTopicList().then((r) => {
+    this.topics = []
+    getTopicList(tab).then((r) => {
       // r.data.forEach((e, i) => {
       //   addTopic(e)
       // })

@@ -14,7 +14,7 @@ import {
 const TopicPrimary = ({ classes, topic }) => {
   return(
     <label className={ classes.root }>
-      <span className={ classes.tab }>{topic.tab}</span>
+      <span className={ classes.tab }>{topic.top ? '置顶🔥' : topic.tab}</span>
       <span className={ classes.title }>{topic.title}</span>
     </label>
   )

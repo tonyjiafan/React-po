@@ -1,7 +1,11 @@
 import React from 'react'
+import {
+  withRouter,
+} from 'react-router-dom'
+import PropTypes from 'prop-types'
 import Routes from '../route/router'
 
-export default class App extends React.Component {
+class App extends React.Component {
   componentDidMount() {
     // do something here
   }
@@ -11,3 +15,9 @@ export default class App extends React.Component {
     ]
   }
 }
+
+App.propTypes = {
+  location: PropTypes.object.isRequired,
+}
+
+export default withRouter(App)

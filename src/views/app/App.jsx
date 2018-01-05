@@ -6,7 +6,7 @@ import {
   inject
 } from 'mobx-react';
 import Button from 'material-ui/Button';
-import { AppState, TopicState } from '../../store/store';
+import { AppState } from '../../store/store';
 import logo from '../../static/images/logo.png';
 import './App.css';
 
@@ -56,8 +56,9 @@ class App extends Component {
 }
 
 App.propTypes = {
-  appState: PropTypes.instanceOf(AppState),
-  topicState: PropTypes.instanceOf(TopicState)
+  appState: PropTypes.instanceOf(AppState).isRequired,
+  topicState: PropTypes.object.isRequired
+  // topicState: PropTypes.instanceOf(TopicState)
 }
 
 export default App;
