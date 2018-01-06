@@ -40,26 +40,32 @@ export default class TopicWarp extends React.Component {
     let tab = this.getTab()
     this.getTopicData(tab)
   }
-
+  // 获取 列表数据
   getTopicData(val) {
     this.props.topicState.getTopics(val || 'all')
   }
-
+  // 查看props 更新数据
+  componentWillReceiveProps(enxtProps) {
+    if (enxtProps.location.search !== this.props.location.search) {
+      let val = this.getTab(enxtProps.location.search)
+      this.getTopicData(val)
+    }
+  }
+  // tab切换的操作
   changeTab(e, value) {
-    // console.log(value)
     this.context.router.history.push({
       pathname: '/list',
       search: `?tab=${value}`
     })
-    this.getTopicData(value)
+    // this.getTopicData(value)
   }
-
   // 获取路由上的参数
-  getTab() {
-    const query = queryString.parse(this.props.location.search)
+  getTab(search) {
+    search = search || this.props.location.search
+    const query = queryString.parse(search)
     return query.tab || 'all'
   }
-
+  // 查看详情按钮
   listItemClick(id) {
     console.log(id)
   }

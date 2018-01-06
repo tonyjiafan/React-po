@@ -7,17 +7,6 @@ import {
 } from 'mobx';
 import { topicSchema } from '../util/data'
 import { getTopicList } from '../api/list'
-// export default class TopicState {
-//   constructor({ topicList, name } = { topicList: [], name: 'TOPIC - tonyjiafan' }) {
-//     this.topicList = topicList
-//     this.name = name
-//   }
-//   @observable topicList
-//   @observable name
-//   @computed get sayName() {
-//     return `${this.name} 我原本的值是 "TOPIC - tonyjiafan"`
-//   }
-// }
 
 const createTopic = (topic) => {
   return Object.assign({}, topicSchema, topic)
@@ -54,9 +43,27 @@ class TopicState {
     this.syncing = true
     this.topics = []
     getTopicList(tab).then((r) => {
-      // r.data.forEach((e, i) => {
-      //   addTopic(e)
-      // })
+      r.data.forEach((e, i) => {
+        switch(e.tab) {
+          case 'share':
+            e.tab = '分享';
+            break;
+          case 'job':
+            e.tab = '工作';
+            break;
+          case 'ask':
+            e.tab = '问答';
+            break;
+          case 'good':
+            e.tab = '精品';
+            break;
+          case 'dev':
+            e.tab = '测试';
+            break;
+          default:
+            e.tab = '全部';
+        }
+      })
       const topics = r.data.map(topic => {
         return new Topic(createTopic(topic))
       })
