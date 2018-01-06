@@ -6,16 +6,14 @@ import { withStyles } from 'material-ui/styles'
 
 const styles = {
   root: {
-    margin: 0,
-    marginTop: 0,
-    width: '100%',
-    height: 'auto',
+    margin: 24,
+    marginTop: 80,
     minHeight: '100%',
   },
   '@media screen and (max-width: 480px)': {
     root: {
-      margin: 0,
-      marginTop: 0,
+      margin: 10,
+      marginTop: 70,
     },
   },
 }

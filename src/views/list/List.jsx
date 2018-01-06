@@ -13,7 +13,6 @@ import { CircularProgress } from 'material-ui/Progress'
 import { AppState, TopicState } from '../../store/store';
 import '../../static/css/base.css';
 import Container from '../../components/Container';
-import TopBar from '../../components/TopBar';
 import TopicListItem from './list-item';
 import { tabs } from '../../util/data';
 // import GoirdList from '../../components/GoirdList';
@@ -84,7 +83,6 @@ export default class TopicWarp extends React.Component {
         <Helmet>
           <title>话题列表</title>
         </Helmet>
-        <TopBar />
         <div>
           <Tabs
             value={tabname}

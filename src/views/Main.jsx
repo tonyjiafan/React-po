@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Routes from '../route/router'
+import MainAppBar from '../components/TopBar'
 
 class App extends React.Component {
   componentDidMount() {
@@ -11,6 +12,7 @@ class App extends React.Component {
   }
   render() {
     return [
+      <MainAppBar location={this.props.location} key="app-bar" />,
       <Routes key="routes" />,
     ]
   }

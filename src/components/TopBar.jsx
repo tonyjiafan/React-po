@@ -1,114 +1,108 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from 'material-ui/styles'
 import {
-  Link,
-} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import AccountCircle from 'material-ui-icons/AccountCircle';
-import Menu, { MenuItem } from 'material-ui/Menu';
+  inject,
+  observer,
+} from 'mobx-react'
 
-import header from '../static/images/logo.png';
+import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import Typography from 'material-ui/Typography'
+import Button from 'material-ui/Button'
+import IconButton from 'material-ui/IconButton'
+import HomeIcon from 'material-ui-icons/Home'
 
-const styles = {
+const styleSheet = {
   root: {
     width: '100%',
-    overflowX: 'hidden',
   },
   flex: {
     flex: 1,
   },
-  iconLogo: {
-    width: 50,
-    height: 50,
-    borderRadius: 4,
-    marginTop: 4,
-    border: `2px solid #fff`,
-  },
-  alink: {
-    textDecoration: 'none',
-    outline: 'none',
-  },
-};
+}
 
-class MenuAppBar extends React.Component {
-  state = {
-    auth: true,
-    anchorEl: null,
-  };
+@inject((stores) => {
+  return {
+    // user: stores.appState.user,
+  }
+}) @observer
+class MainAppBar extends React.Component {
+  // static contextTypes = {
+  //   router: PropTypes.object,
+  // }
 
-  handleChange = (event, checked) => {
-    this.setState({ auth: checked });
-  };
+  constructor() {
+    super()
+    this.goToIndex = this.goToIndex.bind(this)
+    this.goToUser = this.goToUser.bind(this)
+    this.goToCreate = this.goToCreate.bind(this)
+  }
 
-  handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
+  componentDidMount() {
+    // do something here
+  }
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+  goToUser() {
+    const { location } = this.props
+    if (location.pathname !== '/user/login') {
+      if (this.props.user.isLogin) {
+        this.context.router.history.push('/user/info')
+      } else {
+        this.context.router.history.push({
+          pathname: '/user/login',
+          search: `?from=${location.pathname}`,
+        })
+      }
+    }
+  }
+
+  goToCreate() {
+    this.context.router.history.push('/topic/create')
+  }
+
+  goToIndex() {
+    this.context.router.history.push('/')
+  }
 
   render() {
-    const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
-    const open = Boolean(anchorEl);
-
+    const classes = this.props.classes
+    const user = this.props.user
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
+            <IconButton color="contrast" aria-label="Menu" onClick={this.goToIndex}>
+              <HomeIcon />
+            </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
-              <img alt="" className={classes.iconLogo} src={header} />
+              C-Node
             </Typography>
-            <Typography type="title" color="inherit" className={classes.flex}>
-              CNode - 社区
-            </Typography>
-            {auth && (
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="contrast"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <Link to="/login" className={classes.alink}>
-                    <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
-                  </Link>
-                  <Link to="/" className={classes.alink}>
-                    <MenuItem onClick={this.handleClose}>My Account</MenuItem>
-                  </Link>
-                </Menu>
-              </div>
-            )}
+            {
+              // user.isLogin ?
+                <Button raised color="accent" onClick={this.goToCreate}>
+                  新建话题
+                </Button>
+                // null
+            }
+            <Button color="contrast" onClick={this.goToUser}>
+              登录
+              {/* {user.isLogin ? user.info.loginName : '登录'} */}
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
-    );
+    )
   }
 }
 
-MenuAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+MainAppBar.wrappedComponent.propTypes = {
+  // user: PropTypes.object.isRequired,
+}
 
-export default withStyles(styles)(MenuAppBar);
+MainAppBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+}
+
+export default withStyles(styleSheet)(MainAppBar)
