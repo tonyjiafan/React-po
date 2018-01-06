@@ -33,6 +33,7 @@ export default class TopicWarp extends React.Component {
     this.changeTab = this.changeTab.bind(this)
     this.listItemClick = this.listItemClick.bind(this)
     this.getTopicData = this.getTopicData.bind(this)
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this)
   }
 
   componentDidMount() {
@@ -65,8 +66,9 @@ export default class TopicWarp extends React.Component {
     return query.tab || 'all'
   }
   // 查看详情按钮
-  listItemClick(id) {
-    console.log(id)
+  listItemClick(item) {
+    console.log(item.title)
+    this.context.router.history.push(`/detail/${item.id}`)
   }
 
   render() {
@@ -103,7 +105,10 @@ export default class TopicWarp extends React.Component {
           {
             topicList.map(topic => {
               return(
-                <TopicListItem onClick={this.listItemClick} topic={topic} key={topic.id} />
+                <TopicListItem
+                onClick={() => this.listItemClick(topic)}
+                topic={topic}
+                key={topic.id} />
               )
             })
           }

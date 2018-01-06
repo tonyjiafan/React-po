@@ -1,12 +1,12 @@
 import {
   observable,
   computed,
-  // toJs,
   action,
   extendObservable,
+  // toJs,
 } from 'mobx';
 import { topicSchema } from '../util/data'
-import { getTopicList } from '../api/list'
+import { getTopicList, getTopicDetail } from '../api/list'
 
 const createTopic = (topic) => {
   return Object.assign({}, topicSchema, topic)
@@ -18,17 +18,25 @@ class Topic {
   }
   @observable syncing = false
   @observable topicName
+  @observable topicDetails
 }
 
 class TopicState {
   @observable topics
+  @observable topicDetails
   @observable syncing
   @observable topicName
 
-  constructor({ syncing, topics, topicName } = { syncing: false, topics: [], topicName: '崩虾卡拉卡' }) {
-  this.syncing = syncing
-  this.topicName = topicName
-  this.topics = topics.map(topic => Topic(createTopic(topic)))
+  constructor({ syncing, topics, topicDetails, topicName } = {
+    syncing: false,
+    topics: [],
+    topicDetails: {},
+    topicName: '崩虾卡拉卡'
+  }) {
+    this.syncing = syncing
+    this.topicDetails = topicDetails
+    this.topicName = topicName
+    this.topics = topics.map(topic => Topic(createTopic(topic)))
   }
 
   @computed get sayName() {
@@ -70,6 +78,14 @@ class TopicState {
       this.topics = topics
       this.syncing = false
     }).catch((r) => {
+      console.log(r)
+    })
+  }
+
+  @action getTopicDetails(id) {
+    getTopicDetail(id, true, '4e11d653-2bb5-404d-ab80-eec7813ac756').then(r => {
+      this.topicDetails = r
+    }).catch(r => {
       console.log(r)
     })
   }
