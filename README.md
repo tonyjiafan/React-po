@@ -5,7 +5,7 @@
 #### 主要技术
 
 - react
-- mox
+- mobx - 状态机
 - react 体系的众多 plugins
 
 
