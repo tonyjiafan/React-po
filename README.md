@@ -35,4 +35,4 @@ npm run start
 
 ##                                    开心.JPG
 
-<img src="https://github.com/tonyjiafan/React-po/blob/master/img/timg.jpeg" />
+<img src="https://github.com/tonyjiafan/React-po/blob/master/img/timg.png" />
