@@ -113,7 +113,11 @@ export default class TopicWarp extends React.Component {
           {
             syncingTopics ?
             (
-              <div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                padding: '40px 0',
+              }}>
                 <CircularProgress color="accent" size={100} />
               </div>
             ) :
