@@ -33,19 +33,25 @@ export default class TopicWarp extends React.Component {
     super()
     this.changeTab = this.changeTab.bind(this)
     this.listItemClick = this.listItemClick.bind(this)
+    this.getTopicData = this.getTopicData.bind(this)
   }
 
   componentDidMount() {
-    const tabname = this.getTab()
-    this.props.topicState.getTopics(tabname)
+    let tab = this.getTab()
+    this.getTopicData(tab)
+  }
+
+  getTopicData(val) {
+    this.props.topicState.getTopics(val || 'all')
   }
 
   changeTab(e, value) {
-    console.log(value)
+    // console.log(value)
     this.context.router.history.push({
       pathname: '/list',
       search: `?tab=${value}`
     })
+    this.getTopicData(value)
   }
 
   // 获取路由上的参数

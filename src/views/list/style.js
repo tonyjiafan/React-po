@@ -9,7 +9,7 @@ export const topicPrimaryStyle = (theme) => {
       color: '#555',
     },
     tab: {
-      backgroundColor: theme.palette.primary[500],
+      backgroundColor: theme.palette.primary[400],
       textAlign: 'center',
       display: 'inline-block',
       padding: '0 6px',
@@ -20,10 +20,10 @@ export const topicPrimaryStyle = (theme) => {
       flexShrink: 0,
     },
     good: {
-      backgroundColor: theme.palette.accent[600],
+      backgroundColor: theme.palette.accent[300],
     },
     top: {
-      backgroundColor: theme.palette.accent[200],
+      backgroundColor: theme.palette.accent[600],
     },
   }
 }

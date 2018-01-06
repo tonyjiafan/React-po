@@ -6,15 +6,29 @@ import ListItemText from 'material-ui/List/ListItemText';
 import Avatar from 'material-ui/Avatar';
 import FavoriteIcon from 'material-ui-icons/Favorite';
 import { withStyles } from 'material-ui/styles';
+import cx from 'classnames';
 import {
   topicPrimaryStyle,
   topicSecondaryStyle
 } from './style';
 
-const TopicPrimary = ({ classes, topic }) => {
+const tabBlock = (tab, isTop, isGood) => {
+  return isTop ? '置顶' : (isGood ? '精品' : tab)
+}
+
+const TopicPrimary = (props) => {
+  const topic = props.topic
+  const classes = props.classes
+  const isTop = topic.top
+  const isGood = topic.good
+  const classNames = cx([classes.tab, isTop ? classes.top : '', isGood ? classes.good : ''])
   return(
     <label className={ classes.root }>
-      <span className={ classes.tab }>{topic.top ? '置顶🔥' : topic.tab}</span>
+      <span className={ classNames }>
+        {
+          tabBlock(topic.tab, isTop, isGood)
+        }
+      </span>
       <span className={ classes.title }>{topic.title}</span>
     </label>
   )
