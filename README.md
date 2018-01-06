@@ -6,8 +6,8 @@
 
 - react
 - mox
+- react 体系的众多 plugins
 
-#### gulp-livereload 实时刷新web页面,不用手动刷新你懂得!
 
 - 安装依赖
 
@@ -33,6 +33,6 @@ npm run start
 
 
 
-## 开心.JPG
+##                                    开心.JPG
 
 <img src="https://github.com/tonyjiafan/React-po/blob/master/img/timg.jpeg" />

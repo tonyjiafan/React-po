@@ -83,7 +83,7 @@ class TopicState {
   }
 
   @action getTopicDetails(id) {
-    getTopicDetail(id, true, '4e11d653-2bb5-404d-ab80-eec7813ac756').then(r => {
+    getTopicDetail(id).then(r => {
       this.topicDetails = r
     }).catch(r => {
       console.log(r)
