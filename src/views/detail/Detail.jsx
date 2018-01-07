@@ -94,8 +94,10 @@ class Detail extends React.Component {
                             title={e.author.loginname}
                           />
                           <CardContent>
-                            <Typography type="headline" component="h4">
-                              <span style={{color: '#01aef2'}}>{details.author.loginname}</span>
+                            <Typography className={classes.headerLine} type="headline" component="h4">
+                              <Button color="primary">
+                                {details.author.loginname}
+                              </Button>
                             </Typography>
                             <Typography component="p">
                               {details.create_at}
@@ -103,7 +105,7 @@ class Detail extends React.Component {
                           </CardContent>
                           <CardActions>
                             <Button raised color="accent">
-                              Share
+                              {details.tab}
                             </Button>
                           </CardActions>
                         </Card>

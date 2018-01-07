@@ -38,6 +38,9 @@ const topicDetailStyle = (theme) => {
       flexWrap: 'wrap',
       justifyContent:'center',
     },
+    headerLine: {
+      fontSize: '18px',
+    },
     card: {
       maxWidth: 140,
       margin: '6px',
